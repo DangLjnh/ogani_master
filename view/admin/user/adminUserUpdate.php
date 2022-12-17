@@ -49,45 +49,7 @@ include('../../../config/db.php');
   }
   ?>
 
-  <header class="header">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3">
-          <div class="header__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <nav class="header__menu">
-            <ul>
-              <li class="active"><a href="./index.html">Users</a></li>
-              <li><a href="./shop-grid.html">Shop</a></li>
-              <li><a href="#">Pages</a>
-              </li>
-              <li><a href="./blog.html">Blog</a></li>
-              <li><a href="./contact.html">Contact</a></li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </div>
-    <div>
-      <?php
-      if (isset($_SESSION['nameAdmin'])) {
-      ?>
-      <div class="d-flex justify-content-center align-items-center gap-2">
-        <a href="#" class=""><?= $_SESSION['nameAdmin']; ?></a>
-        <a class="btn btn-warning ml-2" href="../../controller/logout.php">Log out</a>
-      </div>
-      <?php
-      } else {
-      ?>
-      <a href="view/login.php"><i class="fa fa-user"></i> Login</a>
-      <?php
-      }
-      ?>
-    </div>
-  </header>
+  <?php include('../header/headerUser.php'); ?>
 
   <div class="container">
     <form action="../../../controller/user/update.php" method="POST">

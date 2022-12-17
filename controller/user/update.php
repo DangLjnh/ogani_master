@@ -20,11 +20,10 @@ if (isset($_POST['update_user_btn'])) {
       ':address' => $address,
     ];
     $query_execute = $statement->execute($data);
-    print_r($query_execute);
 
     if ($query_execute) {
       $_SESSION['message'] = "Updated Successfully";
-      header('Location: ../../view/admin/user/admin-user.php');
+      header('Location: ../../view/admin/user/adminUser.php');
       exit(0);
     } else {
       $_SESSION['message'] = "Not Updated";

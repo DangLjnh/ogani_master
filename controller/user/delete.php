@@ -15,11 +15,11 @@ if (isset($_POST['delete_user'])) {
 
     if ($query_execute) {
       $_SESSION['message'] = "Deleted Successfully";
-      header('Location: ../../view/admin/user/admin-user.php');
+      header('Location: ../../view/admin/user/adminUser.php');
       exit(0);
     } else {
       $_SESSION['message'] = "Not Deleted";
-      header('Location: ../../view/admin/user/admin-user.php');
+      header('Location: ../../view/admin/user/adminUser.php');
       exit(0);
     }
   } catch (PDOException $e) {

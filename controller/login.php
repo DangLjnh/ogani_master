@@ -21,7 +21,7 @@ if (isset($_POST['btn-login'])) {
 
   if ($resultAdmin) {
     $_SESSION['nameAdmin'] = $resultAdmin->name;
-    header('Location: ../view/admin/user/admin-user.php');
+    header('Location: ../view/admin/user/adminUser.php');
     exit(0);
   } else {
     if ($result) {
