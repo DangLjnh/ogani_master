@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('../../../config/db.php');
+if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -36,16 +37,29 @@ include('../../../config/db.php');
     unset($_SESSION['message']);
   endif;
   ?>
+  <?php
+  if (isset($_GET['id'])) {
+    $categoryID = $_GET['id'];
+
+    $query = "SELECT * FROM category WHERE categoryID=:categoryID LIMIT 1";
+    $statement = $conn->prepare($query);
+    $data = [':categoryID' => $categoryID];
+    $statement->execute($data);
+
+    $result = $statement->fetch(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
+  }
+  ?>
 
   <?php include('../header/headerCategory.php'); ?>
 
   <div class="container">
-    <form action="../../../controller/category/create.php" method="POST" enctype='multipart/form-data'>
+    <form action="../../../controller/user/update.php" method="POST">
       <div class="modal-body row">
+        <input type="hidden" name="id" value="<?= $result->categoryID ?>" />
         <div class="form-group col-6">
           <div class="col-sm-12">
             <label for="text">Name: </label>
-            <input type="text" name="name" class="form-control" placeholder="Enter name">
+            <input type="text" value="<?= $result->name; ?>" name="name" class="form-control" placeholder="Enter name">
           </div>
         </div>
         <div class="form-group col-6 d-flex align-items-end">
@@ -56,13 +70,13 @@ include('../../../config/db.php');
             </div>
           </div>
         </div>
-        <div class="form-group col-6">
+        <div class=" col-6">
         </div>
-        <div class="form-group col-6">
-          <div class="image-upload"></div>
+        <div class="col-6">
+          <img src="../<?= $result->photoURL; ?>" style="object-fit: cover;">
         </div>
         <div class="text-center">
-          <button type="submit" name="create_category_btn" class="btn btn-primary">Update user</button>
+          <button type="submit" name="update_user_btn" class="btn btn-primary">Update user</button>
         </div>
     </form>
   </div>
@@ -80,7 +94,6 @@ include('../../../config/db.php');
   <script src="js/mixitup.min.js"></script>
   <script src="js/owl.carousel.min.js"></script>
   <script src="js/main.js"></script> -->
-
   <script>
   const fileImage = document.querySelector(".file-image")
   const imageUpload = document.querySelector(".image-upload")
@@ -120,6 +133,7 @@ include('../../../config/db.php');
     }
   };
   </script>
+
 
 </body>
 

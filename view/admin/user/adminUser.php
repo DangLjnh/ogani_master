@@ -77,7 +77,7 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
             <td><?= $row->phone; ?></td>
             <td><?= $row->address; ?></td>
             <td class="d-flex align-items-center justify-content-center">
-              <a href="./adminUserUpdate?id=<?= $row->id; ?>" class="btn btn-info btn-lg">Open</a>
+              <a href="./adminUserUpdate?id=<?= $row->id; ?>" class="btn btn-warning">Edit</a>
               <form action="../../../controller/user/delete.php" method="POST">
                 <button type="submit" name="delete_user" value="<?= $row->id; ?>"
                   class="btn btn-danger ml-2">Delete</button>

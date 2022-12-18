@@ -52,35 +52,30 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Username</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Address</th>
+            <th scope="col">Image</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
           <?php
-          $query = "SELECT * FROM user";
+          $query = "SELECT * FROM category";
           $statement = $conn->prepare($query);
           $statement->execute();
-
           $statement->setFetchMode(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
           $result = $statement->fetchAll();
           if ($result) {
             foreach ($result as $row) {
           ?>
           <tr>
-            <td><?= $row->id; ?></td>
+            <td><?= $row->categoryID; ?></td>
             <td><?= $row->name; ?></td>
-            <td><?= $row->email; ?></td>
-            <td><?= $row->username; ?></td>
-            <td><?= $row->phone; ?></td>
-            <td><?= $row->address; ?></td>
-            <td class="d-flex align-items-center justify-content-center">
-              <a href="./adminUserUpdate?id=<?= $row->id; ?>" class="btn btn-info btn-lg">Open</a>
+            <td>
+              <img src="../<?= $row->photoURL; ?>" width='80' height='80' style="object-fit: cover;">
+            </td>
+            <td>
+              <a href="./adminCategoryUpdate.php?id=<?= $row->categoryID; ?>" class="btn btn-warning ">Edit</a>
               <form action="../../../controller/user/delete.php" method="POST">
-                <button type="submit" name="delete_user" value="<?= $row->id; ?>"
+                <button type="submit" name="delete_user" value="<?= $row->categoryID; ?>"
                   class="btn btn-danger ml-2">Delete</button>
               </form>
             </td>
