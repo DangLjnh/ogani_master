@@ -10,7 +10,7 @@
         <nav class="header__menu">
           <ul>
             <li><a href="../user/adminUser.php">Users</a></li>
-            <li><a href="./shop-grid.html">Products</a></li>
+            <li><a href="../product/adminProduct.php">Products</a></li>
             <li class="active"><a href="../category/adminCategory.php">Categories</a></li>
             <li><a href="./blog.html">Orders</a></li>
             <li><a href="./contact.html">Stocks</a></li>

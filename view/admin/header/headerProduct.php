@@ -3,14 +3,14 @@
     <div class="row">
       <div class="col-lg-3">
         <div class="header__logo">
-          <!-- <a href="./index.html"><img src="img/logo.png" alt=""></a> -->
+          <a href="./index.html"><img src="img/logo.png" alt=""></a>
         </div>
       </div>
       <div class="col-lg-9">
         <nav class="header__menu">
           <ul>
-            <li class="active"><a href="./adminUser.php">Users</a></li>
-            <li><a href="../product/adminProduct.php">Products</a></li>
+            <li ><a href="../user/adminUser.php">Users</a></li>
+            <li class="active"><a href="../product/adminProduct.php">Products</a></li>
             <li><a href="../category/adminCategory.php">Categories</a></li>
             <li><a href="./blog.html">Orders</a></li>
             <li><a href="./contact.html">Stocks</a></li>
