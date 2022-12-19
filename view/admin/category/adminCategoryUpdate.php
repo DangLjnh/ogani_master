@@ -53,30 +53,33 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
   <?php include('../header/headerCategory.php'); ?>
 
   <div class="container">
-    <form action="../../../controller/user/update.php" method="POST">
+    <form action="../../../controller/category/update.php" method="POST" enctype='multipart/form-data'>
       <div class="modal-body row">
         <input type="hidden" name="id" value="<?= $result->categoryID ?>" />
         <div class="form-group col-6">
           <div class="col-sm-12">
             <label for="text">Name: </label>
-            <input type="text" value="<?= $result->name; ?>" name="name" class="form-control" placeholder="Enter name">
+            <input type="text" value="<?= $result->name; ?>" name="name" class="form-control" placeholder="Enter name"
+              require>
           </div>
         </div>
         <div class="form-group col-6 d-flex align-items-end">
           <div class="input-group">
             <div class="custom-file">
               <input type="file" class="file-image" id="inputGroupFile02" name='files[]' multiple>
-              <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+              <label class="custom-file-label" for="inputGroupFile02"><?= $result->photoURL; ?></label>
             </div>
           </div>
         </div>
         <div class=" col-6">
         </div>
         <div class="col-6">
-          <img src="../<?= $result->photoURL; ?>" style="object-fit: cover;">
+          <div class="image-upload">
+            <img src="../<?= $result->photoURL; ?>" style="object-fit: cover;" class="imgOld">
+          </div>
         </div>
         <div class="text-center">
-          <button type="submit" name="update_user_btn" class="btn btn-primary">Update user</button>
+          <button type="submit" name="update_category_btn" class="btn btn-primary">Update user</button>
         </div>
     </form>
   </div>
@@ -86,18 +89,11 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
   </div>
   </div>
 
-  <!-- <script src="js/jquery-3.3.1.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.nice-select.min.js"></script>
-  <script src="js/jquery-ui.min.js"></script>
-  <script src="js/jquery.slicknav.js"></script>
-  <script src="js/mixitup.min.js"></script>
-  <script src="js/owl.carousel.min.js"></script>
-  <script src="js/main.js"></script> -->
   <script>
   const fileImage = document.querySelector(".file-image")
   const imageUpload = document.querySelector(".image-upload")
   const labelFile = document.querySelector(".custom-file-label")
+  labelFile.textContent = labelFile.textContent.slice(14)
   fileImage.addEventListener("change", (e) => handleChangeFile(e))
   const toBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -108,10 +104,12 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
     });
   };
   const handleChangeFile = async (e) => {
+    const imgOld = document.querySelector(".imgOld")
     if (e?.target && e?.target?.files[0]) {
       labelFile.textContent = e?.target?.files[0].name
       let strBase64 = await toBase64(e.target.files[0]);
-      if (!imageUpload.innerHTML) {
+      if (imgOld) {
+        imgOld.parentNode.removeChild(imgOld)
         imageUpload.innerHTML += `
           <img
           src=data:image/jpeg;base64${strBase64}
@@ -130,6 +128,7 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
           />
           `
       }
+
     }
   };
   </script>

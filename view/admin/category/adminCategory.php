@@ -74,8 +74,8 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
             </td>
             <td>
               <a href="./adminCategoryUpdate.php?id=<?= $row->categoryID; ?>" class="btn btn-warning ">Edit</a>
-              <form action="../../../controller/user/delete.php" method="POST">
-                <button type="submit" name="delete_user" value="<?= $row->categoryID; ?>"
+              <form action="../../../controller/category/delete.php" method="POST">
+                <button type="submit" name="delete_category" value="<?= $row->categoryID; ?>"
                   class="btn btn-danger ml-2">Delete</button>
               </form>
             </td>
@@ -100,14 +100,14 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
   </div>
   </div>
 
-  <script src="js/jquery-3.3.1.min.js"></script>
+  <!-- <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/jquery.nice-select.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/jquery.slicknav.js"></script>
   <script src="js/mixitup.min.js"></script>
   <script src="js/owl.carousel.min.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/main.js"></script> -->
 
 
 
