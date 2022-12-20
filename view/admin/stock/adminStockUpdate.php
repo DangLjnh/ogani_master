@@ -37,62 +37,41 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
     unset($_SESSION['message']);
   endif;
   ?>
+  <?php
+  if (isset($_GET['id'])) {
+    $stockID = $_GET['id'];
+    $query = "SELECT * FROM stock WHERE stockID=:stockID LIMIT 1";
+    $statement = $conn->prepare($query);
+    $data = [':stockID' => $stockID];
+    $statement->execute($data);
 
+    $result = $statement->fetch(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
+  }
+  ?>
 
-  <?php include('../header/headerCategory.php'); ?>
+  <?php include('../header/headerStock.php'); ?>
 
   <div class="container">
-    <div class="admin">
-      <div class="contact__form__title">
-        <h2>Admin</h2>
-      </div>
-      <a href="./adminCategoryCreate.php" class="btn btn-success">Add new category</a>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Image</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php
-          $query = "SELECT * FROM category";
-          $statement = $conn->prepare($query);
-          $statement->execute();
-          $statement->setFetchMode(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
-          $result = $statement->fetchAll();
-          if ($result) {
-            foreach ($result as $row) {
-          ?>
-          <tr>
-            <td><?= $row->categoryID; ?></td>
-            <td><?= $row->name; ?></td>
-            <td>
-              <img src="../../.<?= $row->photoURL; ?>" width='80' height='80' style="object-fit: cover;">
-            </td>
-            <td>
-              <a href="./adminCategoryUpdate.php?id=<?= $row->categoryID; ?>" class="btn btn-warning ">Edit</a>
-              <form action="../../../controller/category/delete.php" method="POST">
-                <button type="submit" name="delete_category" value="<?= $row->categoryID; ?>"
-                  class="btn btn-danger ml-2">Delete</button>
-              </form>
-            </td>
-          </tr>
-          <?php
-            }
-          } else {
-            ?>
-          <tr>
-            <td colspan="5">No Record Found</td>
-          </tr>
-          <?php
-          }
-          ?>
-        </tbody>
-      </table>
-    </div>
+    <form action="../../../controller/stock/update.php" method="POST">
+      <div class="modal-body row">
+        <input type="hidden" name="id" value="<?= $result->stockID ?>" />
+        <div class="form-group col-6">
+          <div class="col-sm-12">
+            <label for="text">Name: </label>
+            <input type="text" value="<?= $result->name; ?>" name="name" class="form-control" placeholder="Enter name"
+              disabled>
+          </div>
+        </div>
+        <div class="form-group col-6">
+          <div class="col-sm-12">
+            <label for="text">Amount: </label>
+            <input type="number" name="amount" class="form-control" value="<?= $result->amount; ?>" min="1">
+          </div>
+        </div>
+        <div class="text-center">
+          <button type="submit" name="update_stock_btn" class="btn btn-primary">Update stock</button>
+        </div>
+    </form>
   </div>
 
 
@@ -108,8 +87,6 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
   <script src="js/mixitup.min.js"></script>
   <script src="js/owl.carousel.min.js"></script>
   <script src="js/main.js"></script> -->
-
-
 
 </body>
 

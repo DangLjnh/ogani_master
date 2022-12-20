@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('./config/db.php');
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -177,7 +178,8 @@ session_start();
           <div class="header__cart">
             <ul>
               <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-              <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+              <li><a href="./shoping-cart.php"><i class="fa fa-shopping-bag"></i>
+                  <span><?= $_SESSION['countCart']; ?></span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>$150.00</span></div>
           </div>
@@ -256,31 +258,30 @@ session_start();
     <div class="container">
       <div class="row">
         <div class="categories__slider owl-carousel">
+          <?php
+          $query = "SELECT * FROM category";
+          $statement = $conn->prepare($query);
+          $statement->execute();
+          $statement->setFetchMode(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
+          $result = $statement->fetchAll();
+          if ($result) {
+            foreach ($result as $row) {
+          ?>
           <div class="col-lg-3">
-            <div class="categories__item set-bg" data-setbg="img/categories/cat-1.jpg">
-              <h5><a href="#">Fresh Fruit</a></h5>
+            <div class="categories__item set-bg" data-setbg="<?= $row->photoURL ?>">
+              <h5><a href="#">
+                  <?= $row->name; ?>
+                </a></h5>
             </div>
           </div>
-          <div class="col-lg-3">
-            <div class="categories__item set-bg" data-setbg="img/categories/cat-2.jpg">
-              <h5><a href="#">Dried Fruit</a></h5>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="categories__item set-bg" data-setbg="img/categories/cat-3.jpg">
-              <h5><a href="#">Vegetables</a></h5>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="categories__item set-bg" data-setbg="img/categories/cat-4.jpg">
-              <h5><a href="#">drink fruits</a></h5>
-            </div>
-          </div>
-          <div class="col-lg-3">
-            <div class="categories__item set-bg" data-setbg="img/categories/cat-5.jpg">
-              <h5><a href="#">drink fruits</a></h5>
-            </div>
-          </div>
+          <?php
+            }
+          } else {
+            ?>
+          <div>No Record Found</div>
+          <?php
+          }
+          ?>
         </div>
       </div>
     </div>
@@ -298,7 +299,7 @@ session_start();
           <div class="featured__controls">
             <ul>
               <li class="active" data-filter="*">All</li>
-              <li data-filter=".oranges">Oranges</li>
+              <li data-filter=".1">Fresh food</li>
               <li data-filter=".fresh-meat">Fresh Meat</li>
               <li data-filter=".vegetables">Vegetables</li>
               <li data-filter=".fastfood">Fastfood</li>
@@ -307,126 +308,49 @@ session_start();
         </div>
       </div>
       <div class="row featured__filter">
-        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+        <?php
+        $query = "SELECT * FROM product";
+        $statement = $conn->prepare($query);
+        $statement->execute();
+        $statement->setFetchMode(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
+        $result = $statement->fetchAll();
+        if ($result) {
+          foreach ($result as $row) {
+        ?>
+        <div class="col-lg-3 col-md-4 col-sm-6 mix <?= $row->categoryID; ?>">
           <div class="featured__item">
-            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-1.jpg">
+            <div class="featured__item__pic set-bg" data-setbg="<?= $row->photoURL; ?>">
               <ul class="featured__item__pic__hover">
                 <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                <li><a href="./shop-details.php?id=<?= $row->id; ?>"><i class="fa fa-retweet"></i></a></li>
+                <li>
+                  <form action="./shoping-cart.php" method="POST">
+                    <input type="hidden" name="id" value="<?= $row->id; ?>">
+                    <input type="hidden" name="name" value="<?= $row->name; ?>">
+                    <input type="hidden" name="photoURL" value="<?= $row->photoURL ?>">
+                    <input type="hidden" name="price" value="<?= $row->price ?>">
+                    <input type="hidden" name="stockID" value="<?= $row->stockID ?>">
+                    <input type="hidden" name="amount" value="1">
+                    <button type="submit" name="add-to-cart" style="border: none; background-color: unset;"><a><i
+                          class="fa fa-shopping-cart"></i></a></button>
+                  </form>
+                </li>
               </ul>
             </div>
             <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
+              <h6><a href="#"><?= $row->name; ?></a></h6>
+              <h5>$<?= $row->price; ?></h5>
             </div>
           </div>
         </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-2.jpg">
-              <ul class="featured__item__pic__hover">
-                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-3.jpg">
-              <ul class="featured__item__pic__hover">
-                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-4.jpg">
-              <ul class="featured__item__pic__hover">
-                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-5.jpg">
-              <ul class="featured__item__pic__hover">
-                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-6.jpg">
-              <ul class="featured__item__pic__hover">
-                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-7.jpg">
-              <ul class="featured__item__pic__hover">
-                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-          <div class="featured__item">
-            <div class="featured__item__pic set-bg" data-setbg="img/featured/feature-8.jpg">
-              <ul class="featured__item__pic__hover">
-                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
+        <?php
+          }
+        } else {
+          ?>
+        <div>No Record Found</div>
+        <?php
+        }
+        ?>
       </div>
     </div>
   </section>

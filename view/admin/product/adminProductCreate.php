@@ -53,7 +53,7 @@ include('../../../config/db.php');
 
   <div class="container">
     <form action="../../../controller/product/create.php" method="POST" enctype='multipart/form-data'>
-    <div class="modal-body row">
+      <div class="modal-body row">
         <div class="form-group col-6">
           <div class="col-sm-12">
             <label for="text">Tên sản phẩm: </label>
@@ -69,7 +69,8 @@ include('../../../config/db.php');
         <div class="form-group col-6">
           <div class="col-sm-12">
             <label for="text">Cân nặng: </label>
-            <input type="number" name="weight" class="form-control" placeholder="Enter weight">
+            <input type="number" min="0" oninput="validity.valid||(value='');" step="0.5" name="weight"
+              class="form-control" placeholder="Enter weight">
           </div>
         </div>
         <div class="form-group col-6">
@@ -79,12 +80,7 @@ include('../../../config/db.php');
           </div>
         </div>
         <div class="form-group col-6">
-          <div class="col-sm-12">
-            <label for="text">Stock: </label>
-            <input type="number" name="stock" class="form-control" placeholder="Enter name">
-          </div>
-        </div>
-        <div class="form-group col-6 d-flex align-items-end">
+          <label for="text">Image: </label>
           <div class="input-group">
             <div class="custom-file">
               <input type="file" class="file-image" id="inputGroupFile02" name='filess[]' multiple>
@@ -93,23 +89,37 @@ include('../../../config/db.php');
           </div>
         </div>
         <div class="form-group col-6">
-        </div>
-        <div class="form-group col-6">
-          <div class="image-upload"></div>
-        </div>
-        <div class="form-group col-6">
           <div class="col-sm-12">
             <label for="text">Mô tả: </label>
             <input type="text" name="desc" class="form-control" placeholder="Enter name">
           </div>
         </div>
+        <div class="form-group col-6">
+          <div class="image-upload"></div>
+        </div>
         <div class="form-group col-8">
           <div class="col-sm-12">
             <label for="text">Danh mục sản phẩm: </label>
-             <select name="category_product" id=""  >
-                <option value="23">23</option>
-                <option value="43">43</option>
-             </select>
+            <select name="category_product" id="">
+              <?php
+              $query = "SELECT * FROM category";
+              $statement = $conn->prepare($query);
+              $statement->execute();
+              $statement->setFetchMode(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
+              $result = $statement->fetchAll();
+              if ($result) {
+                foreach ($result as $row) {
+              ?>
+              <option value="<?= $row->categoryID; ?>"><?= $row->name; ?></option>
+              <?php
+                }
+              } else {
+                ?>
+              <option value="0">No Record Found</option>
+              <?php
+              }
+              ?>
+            </select>
           </div>
         </div>
         <div class="text-center">

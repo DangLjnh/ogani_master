@@ -13,7 +13,7 @@
             <li><a href="../product/adminProduct.php">Products</a></li>
             <li class="active"><a href="../category/adminCategory.php">Categories</a></li>
             <li><a href="./blog.html">Orders</a></li>
-            <li><a href="./contact.html">Stocks</a></li>
+            <li><a href="../stock/adminStock.php">Stocks</a></li>
           </ul>
         </nav>
       </div>

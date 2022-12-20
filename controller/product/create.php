@@ -1,39 +1,58 @@
 <?php
 include('../../config/db.php');
+include('../../model/ProductModel.php');
 if (isset($_POST['create_product_btn'])) {
   $name = $_POST['name'];
   $price = $_POST['price'];
   $weight = $_POST['weight'];
   $vote = $_POST['vote'];
-  $stockID = $_POST['stock'];
-  $desc = $_POST['desc'];
+  $description = $_POST['desc'];
   $categoryID = $_POST['category_product'];
-  $query = "INSERT INTO product (name, price, weight, vote , photoURL, desc, categoryID) VALUES (?,?,?,?,?,?,?,?)";
+
+  //add stock
+  $queryStock = "INSERT INTO stock (name, amount) VALUES (:name, :amount)";
+  $statementStock = $conn->prepare($queryStock);
+  $query_execute = $statementStock->execute(array(
+    ':name' => $name,
+    ':amount' => 10,
+  ));
+
+  //get id stock 
+  $stockID = $conn->lastInsertId();
+
+  //add product
+  $query = "INSERT INTO product (name, price, weight, vote ,stockID, photoURL, description, categoryID) VALUES (:name, :price, :vote, :weight ,:stockID, :photoURL, :description, :categoryID)";
   $statement = $conn->prepare($query);
-  // File name
   $filename = $_FILES['filess']['name'];
-  // Location
   $target_file = '../../uploads/' . $filename[0];
-  // file extension
   $file_extension = pathinfo(
     $target_file,
     PATHINFO_EXTENSION
   );
   $file_extension = strtolower($file_extension);
-  // Valid image extension
   $valid_extension = array("png", "jpeg", "jpg");
- 
+
   if (in_array($file_extension, $valid_extension)) {
     // Upload file
     if (move_uploaded_file($_FILES['filess']['tmp_name'][0], $target_file)) {
+      $datas = new ProductModel($name, $price, $weight, $vote, $stockID, './uploads/' . $filename[0], $description, $categoryID);
+      $statement->execute((array)$datas);
       // Execute query
-      $statement->execute(
-        array($name,$price,$weight,$vote,$stockID, $target_file, $desc, $categoryID)
-      );
-      header('Location: ../../view/admin/product/adminProductphp');
+      // $data = [
+      //   ':name' => $name,
+      //   ':price' => $price,
+      //   ':vote' => $vote,
+      //   ':weight' => $weight,
+      //   ':stockID' => $stockID,
+      //   ':photoURL' => './uploads/' . $filename[0],
+      //   ':description' => $description,
+      //   ':categoryID' => $categoryID,
+      // ];
+      // $statement->execute(
+      //   $data
+      // );
+      header('Location: ../../view/admin/product/adminProduct.php');
       exit;
     }
   }
-
-   
 }

@@ -39,7 +39,7 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
   ?>
 
 
-  <?php include('../header/headerCategory.php'); ?>
+  <?php include('../header/headerStock.php'); ?>
 
   <div class="container">
     <div class="admin">
@@ -52,13 +52,13 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">Image</th>
+            <th scope="col">Amount</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>
           <?php
-          $query = "SELECT * FROM category";
+          $query = "SELECT * FROM stock";
           $statement = $conn->prepare($query);
           $statement->execute();
           $statement->setFetchMode(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
@@ -67,17 +67,11 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
             foreach ($result as $row) {
           ?>
           <tr>
-            <td><?= $row->categoryID; ?></td>
+            <td><?= $row->stockID; ?></td>
             <td><?= $row->name; ?></td>
+            <td><?= $row->amount; ?></td>
             <td>
-              <img src="../../.<?= $row->photoURL; ?>" width='80' height='80' style="object-fit: cover;">
-            </td>
-            <td>
-              <a href="./adminCategoryUpdate.php?id=<?= $row->categoryID; ?>" class="btn btn-warning ">Edit</a>
-              <form action="../../../controller/category/delete.php" method="POST">
-                <button type="submit" name="delete_category" value="<?= $row->categoryID; ?>"
-                  class="btn btn-danger ml-2">Delete</button>
-              </form>
+              <a href="./adminStockUpdate.php?id=<?= $row->stockID; ?>" class="btn btn-warning ">Edit</a>
             </td>
           </tr>
           <?php
@@ -108,8 +102,6 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
   <script src="js/mixitup.min.js"></script>
   <script src="js/owl.carousel.min.js"></script>
   <script src="js/main.js"></script> -->
-
-
 
 </body>
 

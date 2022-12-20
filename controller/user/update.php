@@ -27,7 +27,7 @@ if (isset($_POST['update_user_btn'])) {
       exit(0);
     } else {
       $_SESSION['message'] = "Not Updated";
-      header('Location: index.php');
+      header('Location: ../../view/admin/user/adminUser.php');
       exit(0);
     }
   } catch (PDOException $e) {

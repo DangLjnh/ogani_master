@@ -30,7 +30,7 @@ if (isset($_POST['update_category_btn'])) {
         array(
           ':id' => $id,
           ':name' => $name,
-          ':photoURL' => $target_file,
+          ':photoURL' => './uploads/' . $filename[0],
         )
       );
       header('Location: ../../view/admin/category/adminCategory.php');

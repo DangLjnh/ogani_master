@@ -79,11 +79,17 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
             <td><?= $row->vote; ?></td>
             <td><?= $row->stockID; ?></td>
             <td>
-              <img src="../<?= $row->photoURL; ?>" width='80' height='80' style="object-fit: cover;">
+              <img src="../../.<?= $row->photoURL; ?>" width='80' height='80' style="object-fit: cover;">
             </td>
-            <td><?= $row->desc; ?></td>
-            <td><?= $row->categoryID; ?></td>
- 
+            <td class="description"><?= $row->description; ?></td>
+            <?php
+                $query = "SELECT * FROM category WHERE categoryID=$row->categoryID LIMIT 1";
+                $statement = $conn->prepare($query);
+                $data = [':categoryID' => $row->categoryID];
+                $statement->execute($data);
+                $result = $statement->fetch(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
+                ?>
+            <td><?= $result->name; ?></td>
           </tr>
           <?php
             }
@@ -105,15 +111,21 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
   </div>
   </div>
 
-  <script src="js/jquery-3.3.1.min.js"></script>
+  <!-- <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/jquery.nice-select.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/jquery.slicknav.js"></script>
   <script src="js/mixitup.min.js"></script>
   <script src="js/owl.carousel.min.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/main.js"></script> -->
 
+  <script>
+  const description = document.querySelectorAll(".description")
+  description.forEach((item) => {
+    item.textContent = item.textContent.slice(0, 100) + " ..."
+  })
+  </script>
 
 
 </body>

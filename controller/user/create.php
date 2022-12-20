@@ -1,6 +1,7 @@
 <?php
 session_start();
 include('../../config/db.php');
+include('../../model/UserModel.php');
 if (isset($_POST['btn-register'])) {
   $name = $_POST['name'];
   $email = $_POST['email'];
@@ -23,15 +24,10 @@ if (isset($_POST['btn-register'])) {
   } else {
     $query = "INSERT INTO user (name, email, password, username, phone, address) VALUES (:name, :email, :password, :username, :phone, :address)";
     $stmt = $conn->prepare($query);
-    $data = [
-      ':name' => $name,
-      ':email' => $email,
-      ':password' => $password,
-      ':username' => $username,
-      ':phone' => $phone,
-      ':address' => $address,
-    ];
-    $query_execute = $stmt->execute($data);
+
+    $data = new UserModel($name, $email, $password, $username, $phone, $address);
+    $query_execute = $stmt->execute((array)$data);
+
     if ($query_execute) {
       $_SESSION['message'] = "Register successful!";
       $_SESSION['nameUser'] = $name;

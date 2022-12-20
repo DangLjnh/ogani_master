@@ -75,7 +75,7 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
         </div>
         <div class="col-6">
           <div class="image-upload">
-            <img src="../<?= $result->photoURL; ?>" style="object-fit: cover;" class="imgOld">
+            <img src="../../../<?= $result->photoURL; ?>" style="object-fit: cover;" class="imgOld">
           </div>
         </div>
         <div class="text-center">
@@ -93,7 +93,7 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
   const fileImage = document.querySelector(".file-image")
   const imageUpload = document.querySelector(".image-upload")
   const labelFile = document.querySelector(".custom-file-label")
-  labelFile.textContent = labelFile.textContent.slice(14)
+  labelFile.textContent = labelFile.textContent.slice(10)
   fileImage.addEventListener("change", (e) => handleChangeFile(e))
   const toBase64 = (file) => {
     return new Promise((resolve, reject) => {
