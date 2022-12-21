@@ -74,8 +74,8 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
           <tr>
             <td><?= $row->id; ?></td>
             <td><?= $row->name; ?></td>
-            <td><?= $row->price; ?></td>
-            <td><?= $row->weight; ?></td>
+            <td> <?=number_format($row->price, 0, '', '.')?> VND</td>
+            <td> <?=number_format($row->weight, 0, '', '.')?> Gam</td>
             <td><?= $row->vote; ?></td>
             <td><?= $row->stockID; ?></td>
             <td>
@@ -90,6 +90,13 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
                 $result = $statement->fetch(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
                 ?>
             <td><?= $result->name; ?></td>
+            <td>
+              <a href="./adminProductUpdate.php?id=<?= $row->id; ?>" class="btn btn-warning ">Edit</a>
+              <form action="../../../controller/product/delete.php" method="POST">
+                <button type="submit" name="delete_product" value="<?= $row->id; ?>"
+                  class="btn btn-danger ml-2">Delete</button>
+              </form>
+            </td>
           </tr>
           <?php
             }

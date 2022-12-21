@@ -40,7 +40,7 @@ include('../../../config/db.php');
   <?php include('../header/headerCategory.php'); ?>
 
   <div class="container">
-    <form action="../../../controller/category/create.php" method="POST" enctype='multipart/form-data'>
+    <form action="../../../controller/category/create.php" method="POST" enctype='multipart/form-data' id="form_category">
       <div class="modal-body row">
         <div class="form-group col-6">
           <div class="col-sm-12">
@@ -51,7 +51,7 @@ include('../../../config/db.php');
         <div class="form-group col-6 d-flex align-items-end">
           <div class="input-group">
             <div class="custom-file">
-              <input type="file" class="file-image" id="inputGroupFile02" name='files[]' multiple>
+              <input type="file" class="file-image" id="inputGroupFile02" name='filess[]'  multiple>
               <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
             </div>
           </div>
@@ -62,7 +62,7 @@ include('../../../config/db.php');
           <div class="image-upload"></div>
         </div>
         <div class="text-center">
-          <button type="submit" name="create_category_btn" class="btn btn-primary">Update user</button>
+          <button type="submit" name="create_category_btn" class="btn btn-primary">Create category</button>
         </div>
     </form>
   </div>
@@ -80,7 +80,11 @@ include('../../../config/db.php');
   <script src="js/mixitup.min.js"></script>
   <script src="js/owl.carousel.min.js"></script>
   <script src="js/main.js"></script> -->
-
+  <script src="http://code.jquery.com/jquery-3.4.1.min.js" 
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
+  <script src="../../../js/jquery_check_category.js"></script>
   <script>
   const fileImage = document.querySelector(".file-image")
   const imageUpload = document.querySelector(".image-upload")

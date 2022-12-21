@@ -1,7 +1,9 @@
 <?php
 session_start();
 include('../../../config/db.php');
+if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -36,61 +38,76 @@ include('../../../config/db.php');
     unset($_SESSION['message']);
   endif;
   ?>
- 
+  <?php
+  if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+
+    $query = "SELECT * FROM product WHERE id=:id LIMIT 1";
+    $statement = $conn->prepare($query);
+    $data = [':id' => $id];
+    $statement->execute($data);
+
+    $result = $statement->fetch(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
+  }
+  ?>
 
   <?php include('../header/headerProduct.php'); ?>
 
   <div class="container">
-    <form action="../../../controller/product/create.php" method="POST" enctype='multipart/form-data' id="form-product">
+    <form action="../../../controller/product/update.php" method="POST" enctype='multipart/form-data' id="form-product-up">
       <div class="modal-body row">
+      <input type="hidden" name="id" value="<?= $result->id ?>" />
+      <input type="hidden" name="stockID" value="<?= $result->stockID ?>" />
         <div class="form-group col-6">
           <div class="col-sm-12">
             <label for="text">Tên sản phẩm: </label>
-            <input type="text" name="name" class="form-control" placeholder="Enter name">
+            <input type="text" value="<?= $result->name; ?>" name="name" class="form-control" placeholder="Enter name">
           </div>
         </div>
         <div class="form-group col-6">
           <div class="col-sm-12">
             <label for="text">Gía: </label>
-            <input type="number" name="price" class="form-control" placeholder="Enter price">
+            <input type="number" value="<?= $result->price; ?>" name="price" class="form-control" placeholder="Enter price">
           </div>
         </div>
         <div class="form-group col-6">
           <div class="col-sm-12">
             <label for="text">Cân nặng(Gam): </label>
-            <input type="number" min="0" oninput="validity.valid||(value='');" step="0.5" name="weight"
+            <input type="number" min="0" name="weight" oninput="validity.valid||(value='');" step="0.5" value="<?= $result->weight;?>"
               class="form-control" placeholder="Enter weight">
           </div>
         </div>
         <div class="form-group col-6">
           <div class="col-sm-12">
             <label for="text">Đánh giá(1-5): </label>
-            <input type="number" name="vote" class="form-control" min="1" max="5" placeholder="Enter name">
+            <input type="number" name="vote" value="<?= $result->vote; ?>" class="form-control" min="1" max="5" placeholder="Enter name">
           </div>
         </div>
         <div class="form-group col-6">
           <label for="text">Image: </label>
           <div class="input-group">
             <div class="custom-file">
-              <input type="file" class="file-image" id="inputGroupFile02" name='filess[]' multiple>
-              <label class="custom-file-label" for="inputGroupFile02">Choose file</label>
+              <input type="file" class="file-image " id="inputGroupFile02" name='filess[]' multiple>
+              <label class="custom-file-label  " for="inputGroupFile02"><?= $result->photoURL; ?></label>
             </div>
           </div>
         </div>
         <div class="form-group col-6">
           <div class="col-sm-12">
             <label for="text">Mô tả: </label>
-            <input type="text" name="desc" class="form-control" placeholder="Enter name">
+            <input type="text" name="desc" value="<?= $result->description;?>" class="form-control" placeholder="Enter name">
           </div>
         </div>
         <div class="form-group col-6">
-          <div class="image-upload"></div>
+          <div class="image-upload">
+          <img src="../../../<?= $result->photoURL; ?>" style="object-fit: cover;" class="imgOld">
+          </div>
         </div>
         <div class="form-group col-8">
           <div class="col-sm-12">
             <label for="text">Danh mục sản phẩm: </label>
-            <select name="category_product" id="">
-            <option value="0">No Record Found</option> 
+            <select   name="category_product">
+            <option value="0">No Record Found</option>
               <?php
               $query = "SELECT * FROM category";
               $statement = $conn->prepare($query);
@@ -100,7 +117,7 @@ include('../../../config/db.php');
               if ($result) {
                 foreach ($result as $row) {
               ?>
-              <option value="<?= $row->categoryID; ?>"><?= $row->name; ?></option>
+              <option value="<?= $row->categoryID; ?>" ><?= $row->name; ?></option>
               <?php
                 }
               } else {
@@ -113,7 +130,7 @@ include('../../../config/db.php');
           </div>
         </div>
         <div class="text-center">
-          <button type="submit" name="create_product_btn" class="btn btn-primary">Thêm sản phẩm</button>
+          <button type="submit" name="update_product_btn" class="btn btn-primary">cập nhật sản phẩm</button>
         </div>
     </form>
   </div>
@@ -134,7 +151,7 @@ include('../../../config/db.php');
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
-  <script src="../../../js/jquery_product.js"></script>
+  <script src="../../../js/jquery-checkUpProduct.js"></script>
   
  
 

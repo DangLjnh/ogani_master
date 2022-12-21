@@ -21,7 +21,7 @@ if (isset($_POST['create_product_btn'])) {
   $stockID = $conn->lastInsertId();
 
   //add product
-  $query = "INSERT INTO product (name, price, weight, vote ,stockID, photoURL, description, categoryID) VALUES (:name, :price, :vote, :weight ,:stockID, :photoURL, :description, :categoryID)";
+  $query = "INSERT INTO product (name, price, weight, vote ,stockID, photoURL, description, categoryID) VALUES (:name, :price,   :weight ,:vote,:stockID, :photoURL, :description, :categoryID)";
   $statement = $conn->prepare($query);
   $filename = $_FILES['filess']['name'];
   $target_file = '../../uploads/' . $filename[0];

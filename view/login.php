@@ -44,7 +44,7 @@ session_start();
           </div>
         </div>
       </div>
-      <form action="../controller/login.php" method="POST">
+      <form action="../controller/login.php" method="POST" id="form_login">
         <div class="row">
           <div class="col-lg-6 col-md-6">
             <input type="text" name="username" placeholder="Your username">
@@ -55,6 +55,8 @@ session_start();
         </div>
         <p class="text-center">You doesn't have an account? <a style="color: #7fad39 !important;" class="link-primary"
             href=" ./register.php">Register now!</a></p>
+            <p class="text-center">Back to <a style="color: #7fad39 !important;" class="link-primary"
+            href="../index.php">Homepage</a></p>
         <div class="text-center">
           <button type="submit" name="btn-login" class="site-btn">Login</button>
         </div>
@@ -62,14 +64,19 @@ session_start();
     </div>
   </div>
 
-  <script src="js/jquery-3.3.1.min.js"></script>
+  <!-- <script src="js/jquery-3.3.1.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/jquery.nice-select.min.js"></script>
   <script src="js/jquery-ui.min.js"></script>
   <script src="js/jquery.slicknav.js"></script>
   <script src="js/mixitup.min.js"></script>
   <script src="js/owl.carousel.min.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/main.js"></script> -->
+  <script src="http://code.jquery.com/jquery-3.4.1.min.js" 
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script type="text/javascript"
+    src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
+  <script src="../js/jquery_checklogin.js"></script>
 
 
 
