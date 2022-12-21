@@ -90,6 +90,7 @@ include('../../../config/db.php');
           <div class="col-sm-12">
             <label for="text">Danh mục sản phẩm: </label>
             <select name="category_product" id="">
+            <option value="0">No Record Found</option> 
               <?php
               $query = "SELECT * FROM category";
               $statement = $conn->prepare($query);

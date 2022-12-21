@@ -43,7 +43,7 @@ include('./config/db.php');
   <div class="humberger__menu__overlay"></div>
   <div class="humberger__menu__wrapper">
     <div class="humberger__menu__logo">
-      <a href="#"><img src="img/logo.png" alt=""></a>
+      <a href="./index.php"><img src="img/logo.png" alt=""></a>
     </div>
     <div class="humberger__menu__cart">
       <ul>
@@ -68,7 +68,7 @@ include('./config/db.php');
     </div>
     <nav class="humberger__menu__nav mobile-menu">
       <ul>
-        <li class="active"><a href="./index.html">Home</a></li>
+        <li class="active"><a href="index.php">Home</a></li>
         <li><a href="./shop-grid.html">Shop</a></li>
         <li><a href="#">Pages</a>
           <ul class="header__menu__dropdown">
@@ -106,7 +106,7 @@ include('./config/db.php');
           <div class="col-lg-6 col-md-6">
             <div class="header__top__left">
               <ul>
-                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
+                <li><i class="fa fa-envelope"></i> phulinh@gmail.com</li>
                 <li>Free Shipping for all Order of $99</li>
               </ul>
             </div>
@@ -153,13 +153,13 @@ include('./config/db.php');
       <div class="row">
         <div class="col-lg-3">
           <div class="header__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+            <a href="./index.php"><img src="img/logo.png" alt=""></a>
           </div>
         </div>
         <div class="col-lg-6">
           <nav class="header__menu">
             <ul>
-              <li class="active"><a href="./index.html">Home</a></li>
+              <li class="active"><a href="./index.php">Home</a></li>
               <li><a href="./shop-grid.html">Shop</a></li>
               <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
@@ -181,7 +181,7 @@ include('./config/db.php');
               <li><a href="./shoping-cart.php"><i class="fa fa-shopping-bag"></i>
                   <span><?= $_SESSION['countCart']; ?></span></a></li>
             </ul>
-            <div class="header__cart__price">item: <span>$150.00</span></div>
+             
           </div>
         </div>
       </div>

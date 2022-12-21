@@ -107,7 +107,7 @@ function showCart()
   <div class="humberger__menu__overlay"></div>
   <div class="humberger__menu__wrapper">
     <div class="humberger__menu__logo">
-      <a href="#"><img src="img/logo.png" alt=""></a>
+      <a href="./index.php"><img src="img/logo.png" alt=""></a>
     </div>
     <div class="humberger__menu__cart">
       <ul>
@@ -204,13 +204,13 @@ function showCart()
       <div class="row">
         <div class="col-lg-3">
           <div class="header__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+            <a href="./index.php"><img src="img/logo.png" alt=""></a>
           </div>
         </div>
         <div class="col-lg-6">
           <nav class="header__menu">
             <ul>
-              <li><a href="./index.html">Home</a></li>
+              <li><a href="./index.php">Home</a></li>
               <li class="active"><a href="./shop-grid.html">Shop</a></li>
               <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">

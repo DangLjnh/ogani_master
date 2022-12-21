@@ -54,9 +54,10 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
   <?php include('../header/headerProduct.php'); ?>
 
   <div class="container">
-    <form action="../../../controller/product/update.php" method="POST" enctype='multipart/form-data' id="form-product">
+    <form action="../../../controller/product/update.php" method="POST" enctype='multipart/form-data' id="form-product-up">
       <div class="modal-body row">
       <input type="hidden" name="id" value="<?= $result->id ?>" />
+      <input type="hidden" name="stockID" value="<?= $result->stockID ?>" />
         <div class="form-group col-6">
           <div class="col-sm-12">
             <label for="text">Tên sản phẩm: </label>
@@ -86,8 +87,8 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
           <label for="text">Image: </label>
           <div class="input-group">
             <div class="custom-file">
-              <input type="file" class="file-image" id="inputGroupFile02" name='filess[]' multiple>
-              <label class="custom-file-label" for="inputGroupFile02"><?= $result->photoURL; ?></label>
+              <input type="file" class="file-image " id="inputGroupFile02" name='filess[]' multiple>
+              <label class="custom-file-label  " for="inputGroupFile02"><?= $result->photoURL; ?></label>
             </div>
           </div>
         </div>
@@ -106,6 +107,7 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
           <div class="col-sm-12">
             <label for="text">Danh mục sản phẩm: </label>
             <select   name="category_product">
+            <option value="0">No Record Found</option>
               <?php
               $query = "SELECT * FROM category";
               $statement = $conn->prepare($query);
@@ -115,7 +117,7 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
               if ($result) {
                 foreach ($result as $row) {
               ?>
-              <option  ><?= $row->name; ?></option>
+              <option value="<?= $row->categoryID; ?>" ><?= $row->name; ?></option>
               <?php
                 }
               } else {
@@ -149,7 +151,7 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <script type="text/javascript"
     src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
-  <script src="../../../js/jquery_product.js"></script>
+  <script src="../../../js/jquery-checkUpProduct.js"></script>
   
  
 
