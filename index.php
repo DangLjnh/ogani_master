@@ -179,7 +179,7 @@ include('./config/db.php');
             <ul>
               <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
               <li><a href="./shoping-cart.php"><i class="fa fa-shopping-bag"></i>
-                  <span><?= $_SESSION['countCart']; ?></span></a></li>
+                  <span><?= $_SESSION['countCart'] || 0; ?></span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>$150.00</span></div>
           </div>

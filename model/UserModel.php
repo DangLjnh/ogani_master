@@ -1,6 +1,7 @@
 <?php
 class UserModel
 {
+  public $conn;
   public $name;
   public $email;
   public $password;

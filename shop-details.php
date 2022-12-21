@@ -63,6 +63,44 @@ function showStar($star)
     <div class="loader"></div>
   </div>
 
+  <!-- Modal -->
+
+  <?php
+  if (isset($_GET['stock'])) {
+    $stock = $_GET['stock'];
+  }
+  if (isset($_SESSION['stockProduct'])) {
+    echo '
+          <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <h3>We dont have enough quantity ' . $result->name . ' right now!</h3>
+          <p>We only have ' . $_SESSION['stockProduct'] . ' products available!</p>
+          <form action="./shoping-cart.php" method="POST">
+            <input type="hidden" name="id" value="' . $result->id . '">
+  <input type="hidden" name="name" value="' . $result->name . '">
+  <input type="hidden" name="photoURL" value="' . $result->photoURL . '">
+  <input type="hidden" name="price" value="' . $result->price . '">
+  <input type="hidden" name="stockID" value="' . $result->stockID . '">
+  <input type="hidden" name="amount" value="' . $stock . '">
+  <button type="submit" class="btn btn-success" name="add-to-cart">Buy all products available!</button>
+  </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+  </div>
+  </div>
+  </div>
+  ';
+  }
+  ?>
+
+
   <!-- Humberger Begin -->
   <div class="humberger__menu__overlay"></div>
   <div class="humberger__menu__wrapper">
@@ -584,6 +622,11 @@ function showStar($star)
   <script src="js/owl.carousel.min.js"></script>
   <script src="js/main.js"></script>
 
+  <script type="text/javascript">
+  $(window).on('load', function() {
+    $('#myModal').modal('show');
+  });
+  </script>
 
 </body>
 

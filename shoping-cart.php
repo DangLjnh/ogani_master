@@ -1,5 +1,6 @@
 <?php
 session_start();
+include('./config/db.php');
 if (!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
 
 //delete product in cart
@@ -13,22 +14,37 @@ if (isset($_POST['add-to-cart'])) {
   $photoURL = $_POST['photoURL'];
   $amount = $_POST['amount'];
   $price = $_POST['price'];
-  //check already exist product in cart
-  $checkExist = 0;
-  for ($i = 0; $i < sizeof($_SESSION['cart']); $i++) {
-    if ($_SESSION['cart'][$i][0] == $id) {
-      $checkExist = 1;
-      $newAmount = $amount + $_SESSION['cart'][$i][3];
-      $_SESSION['cart'][$i][3] = $newAmount;
-      break;
+  $stockID = $_POST['stockID'];
+  $queryStock = "SELECT * FROM stock WHERE stockID=:stockID LIMIT 1";
+  $statementStock = $conn->prepare($queryStock);
+  $data = [':stockID' => $stockID];
+  $statementStock->execute($data);
+  $resultStock = $statementStock->fetch(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
+  //check amount stock
+  if ($amount > $resultStock->amount) {
+    $_SESSION['stockProduct'] = $resultStock->amount;
+    header("Location: ./shop-details.php?id=$id&stock=$resultStock->amount");
+    $_SESSION['restProduct'] = $amount - $resultStock->amount;
+  } else {
+    //check already exist product in cart
+    $checkExist = 0;
+    unset($_SESSION['stockProduct']);
+    for ($i = 0; $i < sizeof($_SESSION['cart']); $i++) {
+      if ($_SESSION['cart'][$i][0] == $id) {
+        $checkExist = 1;
+        $newAmount = $amount + $_SESSION['cart'][$i][3];
+        $_SESSION['cart'][$i][3] = $newAmount;
+        break;
+      }
+    }
+    if ($checkExist === 0) {
+      //add new product
+      $product = [$id, $name, $photoURL, $amount, $price];
+      $_SESSION['cart'][] = $product;
     }
   }
-  if ($checkExist === 0) {
-    //add new product
-    $product = [$id, $name, $photoURL, $amount, $price];
-    $_SESSION['cart'][] = $product;
-  }
 
+  //check cart empty
   if (count($_SESSION['cart']) == 0) {
     unset($_SESSION['total']);
     unset($_SESSION['countCart']);
@@ -364,7 +380,7 @@ function showCart()
               <li>Subtotal<span>$<?= $_SESSION['total'] ?></span></li>
               <li>Total <span>$<?= $_SESSION['total'] ?></span></li>
             </ul>
-            <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+            <a href="./checkout.php" class="primary-btn">PROCEED TO CHECKOUT</a>
           </div>
         </div>
       </div>

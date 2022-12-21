@@ -25,8 +25,8 @@ if (isset($_POST['btn-register'])) {
     $query = "INSERT INTO user (name, email, password, username, phone, address) VALUES (:name, :email, :password, :username, :phone, :address)";
     $stmt = $conn->prepare($query);
 
-    $data = new UserModel($name, $email, $password, $username, $phone, $address);
-    $query_execute = $stmt->execute((array)$data);
+    $user = new UserModel($name, $email, $password, $username, $phone, $address);
+    $query_execute = $stmt->execute((array)$user);
 
     if ($query_execute) {
       $_SESSION['message'] = "Register successful!";
