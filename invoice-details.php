@@ -1,115 +1,30 @@
 <?php
-session_start();
-
-function showProducts()
-{
-  $total = 0;
-  $countCart = 0;
-  if (isset($_SESSION['cart'])) {
-    for ($i = 0; $i < sizeof($_SESSION['cart']); $i++) {
-      $total = $total + $_SESSION['cart'][$i][3] * $_SESSION['cart'][$i][4];
-      $countCart += 1;
-      echo '
-      <li>' . $_SESSION['cart'][$i][1] . '<span>$' . $_SESSION['cart'][$i][3] * $_SESSION['cart'][$i][4] . '</span></li>
-      ';
-    }
-  }
-}
-
-function showDataUser()
-{
-  if (isset($_SESSION['currentUser'])) {
-    for ($i = 0; $i < sizeof($_SESSION['currentUser']); $i++) {
-      echo '
-      <div class="col-lg-8 col-md-6">
-      <input type="hidden" name="id" value="' . $_SESSION['currentUser'][$i][0] . '"/>
-              <div class="row">
-                <div class="col-12">
-                  <div class="checkout__input">
-                    <p>Name<span>*</span></p>
-                    <input type="text" name="name" value="' . $_SESSION['currentUser'][$i][1] . '"/>
-                  </div>
-                </div>
-              </div>
-              <div class="checkout__input">
-                <p>Address<span>*</span></p>
-                <input type="text" name="address" placeholder="Street Address" class="checkout__input__add" value="' . $_SESSION['currentUser'][$i][4] . '"/>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="checkout__input">
-                    <p>Phone<span>*</span></p>
-                    <input type="text" name="phone" value="' . $_SESSION['currentUser'][$i][3] . '"/>
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="checkout__input">
-                    <p>Email<span>*</span></p>
-                    <input type="email" name="email" value="' . $_SESSION['currentUser'][$i][2] . '"/>
-                  </div>
-                </div>
-              </div>
-            </div>
-      ';
-    }
-  } else {
-    echo '
-      <div class="col-lg-8 col-md-6">
-              <div class="row">
-                <div class="col-12">
-                  <div class="checkout__input">
-                    <p>Name<span>*</span></p>
-                    <input type="text" name="name"/>
-                  </div>
-                </div>
-              </div>
-              <div class="checkout__input">
-                <p>Address<span>*</span></p>
-                <input type="text" name="address" placeholder="Street Address" class="checkout__input__add" />
-              </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <div class="checkout__input">
-                    <p>Phone<span>*</span></p>
-                    <input type="text" name="phone" />
-                  </div>
-                </div>
-                <div class="col-lg-6">
-                  <div class="checkout__input">
-                    <p>Email<span>*</span></p>
-                    <input type="email" name="email" />
-                  </div>
-                </div>
-              </div>
-            </div>
-      ';
-  }
-}
-
+include('./config/db.php');
 ?>
+
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="description" content="Ogani Template" />
-  <meta name="keywords" content="Ogani, unica, creative, html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta charset="UTF-8">
+  <meta name="description" content="Ogani Template">
+  <meta name="keywords" content="Ogani, unica, creative, html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Ogani | Template</title>
 
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
 
   <!-- Css Styles -->
-  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css" />
-  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-  <link rel="stylesheet" href="css/elegant-icons.css" type="text/css" />
-  <link rel="stylesheet" href="css/nice-select.css" type="text/css" />
-  <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
-  <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css" />
-  <link rel="stylesheet" href="css/slicknav.min.css" type="text/css" />
-  <link rel="stylesheet" href="css/style.css" type="text/css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+  <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+  <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+  <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+  <link rel="stylesheet" href="css/style.css" type="text/css">
 </head>
 
 <body>
@@ -122,22 +37,18 @@ function showDataUser()
   <div class="humberger__menu__overlay"></div>
   <div class="humberger__menu__wrapper">
     <div class="humberger__menu__logo">
-      <a href="#"><img src="img/logo.png" alt="" /></a>
+      <a href="./index.php"><img src="img/logo.png" alt=""></a>
     </div>
     <div class="humberger__menu__cart">
       <ul>
-        <li>
-          <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
-        </li>
-        <li>
-          <a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a>
-        </li>
+        <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
       </ul>
       <div class="header__cart__price">item: <span>$150.00</span></div>
     </div>
     <div class="humberger__menu__widget">
       <div class="header__top__right__language">
-        <img src="img/language.png" alt="" />
+        <img src="img/language.png" alt="">
         <div>English</div>
         <span class="arrow_carrot-down"></span>
         <ul>
@@ -153,8 +64,7 @@ function showDataUser()
       <ul>
         <li class="active"><a href="./index.html">Home</a></li>
         <li><a href="./shop-grid.html">Shop</a></li>
-        <li>
-          <a href="#">Pages</a>
+        <li><a href="#">Pages</a>
           <ul class="header__menu__dropdown">
             <li><a href="./shop-details.html">Shop Details</a></li>
             <li><a href="./shoping-cart.html">Shoping Cart</a></li>
@@ -204,7 +114,7 @@ function showDataUser()
                 <a href="#"><i class="fa fa-pinterest-p"></i></a>
               </div>
               <div class="header__top__right__language">
-                <img src="img/language.png" alt="" />
+                <img src="img/language.png" alt="">
                 <div>English</div>
                 <span class="arrow_carrot-down"></span>
                 <ul>
@@ -224,16 +134,15 @@ function showDataUser()
       <div class="row">
         <div class="col-lg-3">
           <div class="header__logo">
-            <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+            <a href="./index.php"><img src="img/logo.png" alt=""></a>
           </div>
         </div>
         <div class="col-lg-6">
           <nav class="header__menu">
             <ul>
-              <li><a href="./index.html">Home</a></li>
+              <li><a href="./index.php">Home</a></li>
               <li class="active"><a href="./shop-grid.html">Shop</a></li>
-              <li>
-                <a href="#">Pages</a>
+              <li><a href="#">Pages</a>
                 <ul class="header__menu__dropdown">
                   <li><a href="./shop-details.html">Shop Details</a></li>
                   <li><a href="./shoping-cart.html">Shoping Cart</a></li>
@@ -249,12 +158,8 @@ function showDataUser()
         <div class="col-lg-3">
           <div class="header__cart">
             <ul>
-              <li>
-                <a href="#"><i class="fa fa-heart"></i> <span>1</span></a>
-              </li>
-              <li>
-                <a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a>
-              </li>
+              <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
+              <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
             </ul>
             <div class="header__cart__price">item: <span>$150.00</span></div>
           </div>
@@ -300,7 +205,7 @@ function showDataUser()
                   All Categories
                   <span class="arrow_carrot-down"></span>
                 </div>
-                <input type="text" placeholder="What do yo u need?" />
+                <input type="text" placeholder="What do yo u need?">
                 <button type="submit" class="site-btn">SEARCH</button>
               </form>
             </div>
@@ -326,10 +231,9 @@ function showDataUser()
       <div class="row">
         <div class="col-lg-12 text-center">
           <div class="breadcrumb__text">
-            <h2>Checkout</h2>
+            <h2>Receipt Online</h2>
             <div class="breadcrumb__option">
-              <a href="./index.html">Home</a>
-              <span>Checkout</span>
+              <a href="./index.php">Home</a>
             </div>
           </div>
         </div>
@@ -338,48 +242,120 @@ function showDataUser()
   </section>
   <!-- Breadcrumb Section End -->
 
-  <!-- Checkout Section Begin -->
-  <section class="checkout spad">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h6>
-            <span class="icon_tag_alt"></span> Have a coupon?
-            <a href="#">Click here</a> to enter your code
-          </h6>
-        </div>
-      </div>
-      <div class="checkout__form">
-        <h4>Billing Details</h4>
-        <form action="./controller/checkout.php" method="POST">
-          <div class="row">
-            <?php showDataUser(); ?>
-            <div class="col-lg-4 col-md-6">
-              <div class="checkout__order">
-                <h4>Your Order</h4>
-                <div class="checkout__order__products">
-                  Products <span>Total</span>
-                </div>
-                <ul>
-                  <?php
-                  showProducts();
-                  ?>
-                </ul>
-                <div class="checkout__order__subtotal">
-                  Subtotal <span>$<?= $_SESSION['total'] ?></span>
-                </div>
-                <div class="checkout__order__total">
-                  Total <span>$<?= $_SESSION['total'] ?></span>
-                </div>
-                <button type="submit" name="checkout" class="site-btn">PLACE ORDER</button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
+  <section class="my-5">
+    <?php
+    $orderID = $_GET["orderID"];
+    $query = "SELECT * FROM orders WHERE orderID=:orderID";
+    $statement = $conn->prepare($query);
+    $data = [':orderID' => $orderID];
+    $statement->execute($data);
+    $statement->setFetchMode(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
+    $result = $statement->fetchAll();
+    if ($result) {
+      foreach ($result as $row) {
+    ?>
+    <table cellspacing="0" style="border-collapse: collapse; padding: 40px; width: 100%;" width="100%">
+      <tbody>
+        <tr>
+          <td width="5px" style="padding: 0;"></td>
+          <td
+            style="border: 1px solid #000; clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 0;">
+            <table width="100%" style="border-bottom: 1px solid #eee; border-collapse: collapse; color: #999;">
+              <tbody>
+                <tr>
+                  <td width="50%" style="padding: 20px;"><strong
+                      style="color: #333; font-size: 24px;">$<?= $row->total ?>
+                    </strong>
+                    Paid</td>
+                  <td align="right" width="50%" style="padding: 20px;">Thanks <?= $row->name ?></td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td style="padding: 0;"></td>
+          <td width="5px" style="padding: 0;"></td>
+        </tr>
+        <tr>
+          <td width="5px" style="padding: 0;"></td>
+          <td
+            style="border: 1px solid #000; border-top: 0; clear: both; display: block; margin: 0 auto; max-width: 600px; padding: 0;">
+            <table cellspacing="0"
+              style="border-collapse: collapse; border-left: 1px solid #000; margin: 0 auto; max-width: 600px;">
+              <tbody>
+                <tr>
+                  <td valign="top" style="padding: 20px;">
+                    <h3 style="
+                                            border-bottom: 1px solid #000;
+                                            color: #000;
+                                            font-family: 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+                                            font-size: 18px;
+                                            font-weight: bold;
+                                            line-height: 1.2;
+                                            margin: 0;
+                                            margin-bottom: 15px;
+                                            padding-bottom: 5px;
+                                        ">
+                      Summary
+                    </h3>
+                    <table cellspacing="0" style="border-collapse: collapse; margin-bottom: 40px;">
+                      <tbody>
+                        <tr>
+                          <td style="padding: 5px 0;">Name</td>
+                          <td align="right" style="padding: 5px 0;"><?= $row->name ?></td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 5px 0;">Email</td>
+                          <td align="right" style="padding: 5px 0;"><?= $row->email ?></td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 5px 0;">Phone</td>
+                          <td align="right" style="padding: 5px 0;"><?= $row->phone ?></td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 5px 0;">Address</td>
+                          <td align="right" style="padding: 5px 0;"><?= $row->address ?></td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 5px 0;">Order date</td>
+                          <td align="right" class="date" style="padding: 5px 0;"><?= $row->orderDate ?></td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 5px 0;">Delivery date</td>
+                          <td align="right" class="date" style="padding: 5px 0;"><?= $row->deliveryDate ?></td>
+                        </tr>
+                        <tr>
+                          <td
+                            style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;">
+                            Sign</td>
+                          <td align="right"
+                            style="border-bottom: 2px solid #000; border-top: 2px solid #000; font-weight: bold; padding: 5px 0;">
+                            <?= $row->name ?></td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+          <td width="5px" style="padding: 0;"></td>
+        </tr>
+
+
+      </tbody>
+    </table>
+    <?php
+      }
+    } else {
+      ?>
+    <tr>
+      <td colspan="5">No Record Found</td>
+    </tr>
+    <?php
+    }
+    ?>
+
   </section>
-  <!-- Checkout Section End -->
 
   <!-- Footer Section Begin -->
   <footer class="footer spad">
@@ -388,7 +364,7 @@ function showDataUser()
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="footer__about">
             <div class="footer__about__logo">
-              <a href="./index.html"><img src="img/logo.png" alt="" /></a>
+              <a href="./index.html"><img src="img/logo.png" alt=""></a>
             </div>
             <ul>
               <li>Address: 60-49 Road 11378 New York</li>
@@ -421,11 +397,9 @@ function showDataUser()
         <div class="col-lg-4 col-md-12">
           <div class="footer__widget">
             <h6>Join Our Newsletter Now</h6>
-            <p>
-              Get E-mail updates about our latest shop and special offers.
-            </p>
+            <p>Get E-mail updates about our latest shop and special offers.</p>
             <form action="#">
-              <input type="text" placeholder="Enter your mail" />
+              <input type="text" placeholder="Enter your mail">
               <button type="submit" class="site-btn">Subscribe</button>
             </form>
             <div class="footer__widget__social">
@@ -443,19 +417,14 @@ function showDataUser()
             <div class="footer__copyright__text">
               <p>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy;
-                <script>
+                Copyright &copy;<script>
                 document.write(new Date().getFullYear());
-                </script>
-                All rights reserved | This template is made with
-                <i class="fa fa-heart" aria-hidden="true"></i> by
-                <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                </script> All rights reserved | This template is made with <i class="fa fa-heart"
+                  aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
               </p>
             </div>
-            <div class="footer__copyright__payment">
-              <img src="img/payment-item.png" alt="" />
-            </div>
+            <div class="footer__copyright__payment"><img src="img/payment-item.png" alt=""></div>
           </div>
         </div>
       </div>
@@ -472,6 +441,15 @@ function showDataUser()
   <script src="js/mixitup.min.js"></script>
   <script src="js/owl.carousel.min.js"></script>
   <script src="js/main.js"></script>
+
+
 </body>
 
 </html>
+
+<script>
+const date = document.querySelectorAll(".date")
+date.forEach((item) => {
+  item.textContent = item.textContent.slice(0, 10);
+})
+</script>

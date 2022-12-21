@@ -39,7 +39,7 @@ if (isset($_POST['add-to-cart'])) {
     }
     if ($checkExist === 0) {
       //add new product
-      $product = [$id, $name, $photoURL, $amount, $price];
+      $product = [$id, $name, $photoURL, $amount, $price, $stockID];
       $_SESSION['cart'][] = $product;
     }
   }

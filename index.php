@@ -179,9 +179,8 @@ include('./config/db.php');
             <ul>
               <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
               <li><a href="./shoping-cart.php"><i class="fa fa-shopping-bag"></i>
-                  <span><?= $_SESSION['countCart'] || 0; ?></span></a></li>
+                  <span><?php if (isset($_SESSION['countCart'])) $_SESSION['countCart'] || 0; ?></span></a></li>
             </ul>
-             
           </div>
         </div>
       </div>

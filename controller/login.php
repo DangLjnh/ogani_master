@@ -29,6 +29,9 @@ if (isset($_POST['btn-login'])) {
       if ($result->username == $username && $result->password == $password) {
         // $_SESSION['message'] = "Login successful!";
         $_SESSION['nameUser'] = $result->name;
+        $_SESSION['currentUser'] = [];
+        $user = [$result->id, $result->name, $result->email, $result->phone, $result->address];
+        $_SESSION['currentUser'][] = $user;
         header('Location: ../index.php');
         exit(0);
       } else {
