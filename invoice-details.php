@@ -93,12 +93,11 @@ include('./config/db.php');
   <!-- Humberger End -->
 
   <!-- Header Section Begin -->
-    <!-- Header Section Begin -->
+  <!-- Header Section Begin -->
   <?php include('./include/header_index.php'); ?>
   <!-- Header Section End -->
 
   <!-- Hero Section Begin -->
-  <?php include('./include/heroSecsion_index.php'); ?>
   <!-- Hero Section End -->
   <!-- Hero Section End -->
 

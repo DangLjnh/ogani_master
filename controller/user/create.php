@@ -27,6 +27,9 @@ if (isset($_POST['btn-register'])) {
 
     $user = new UserModel($name, $email, $password, $username, $phone, $address);
     $query_execute = $stmt->execute((array)$user);
+    $id = $conn->lastInsertId();
+    $user = [$id, $name, $email, $phone, $address];
+    $_SESSION['currentUser'][] = $user;
 
     if ($query_execute) {
       $_SESSION['message'] = "Register successful!";

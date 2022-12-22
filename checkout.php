@@ -190,7 +190,6 @@ function showDataUser()
   <!-- Header Section End -->
 
   <!-- Hero Section Begin -->
-  <?php include('./include/heroSecsion_index.php'); ?>
   <!-- Hero Section End -->
   <!-- Hero Section End -->
 
