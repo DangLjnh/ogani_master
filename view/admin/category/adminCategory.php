@@ -51,7 +51,7 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
       <div class="contact__form__title">
         <h2>Admin</h2>
       </div>
-      <a href="./adminCategoryCreate.php" class="btn btn-success">Add new category</a>
+      <a href="./adminCategoryCreate.php" class="btn btn-success margin20">Add new category</a>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -75,7 +75,7 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
             <td>
               <img src="../../.<?= $row->photoURL; ?>" width='80' height='80' style="object-fit: cover;">
             </td>
-            <td>
+            <td class="d-flex align-items-center justify-content-center">
               <a href="./adminCategoryUpdate.php?id=<?= $row->categoryID; ?>" class="btn btn-warning ">Edit</a>
               <form action="../../../controller/category/delete.php" method="POST">
                 <button type="submit" name="delete_category" value="<?= $row->categoryID; ?>"

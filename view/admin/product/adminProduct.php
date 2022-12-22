@@ -53,7 +53,7 @@ $categories = new Category($db);
       <div class="contact__form__title">
         <h2>Admin</h2>
       </div>
-      <a href="./adminProductCreate.php" class="btn btn-success">Add new product</a>
+      <a href="./adminProductCreate.php" class="btn btn-success margin20">Add new product</a>
       <table class="table table-striped">
         <thead>
           <tr>
@@ -93,7 +93,7 @@ $categories = new Category($db);
                 $result = $data->fetch(PDO::FETCH_OBJ);
                 ?>
             <td><?= $result->name; ?></td>
-            <td>
+            <td class="d-flex align-items-center justify-content-center">
               <a href="./adminProductUpdate.php?id=<?= $row->id; ?>" class="btn btn-warning ">Edit</a>
               <form action="../../../controller/product/delete.php" method="POST">
                 <input type="hidden" name="stockID" value="<?= $row->stockID; ?>">

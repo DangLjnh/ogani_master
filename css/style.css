@@ -41,6 +41,10 @@ body {
   color: red;
   font-family: verdana, Helvetica;
 }
+.margin20 {
+  margin: 20px 0;
+}
+
 h1,
 h2,
 h3,
