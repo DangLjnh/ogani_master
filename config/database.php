@@ -27,4 +27,8 @@ class db
       return $this->conn;
     }
   }
+  public function lastInsertId()
+  {
+    return $this->conn->lastInsertId();
+  }
 }

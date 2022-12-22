@@ -47,13 +47,13 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
         <h2>Admin</h2>
       </div>
       <table class="table table-striped">
-      <!-- orderID, deliveryDate, orderDate, name, total -->
+        <!-- orderID, deliveryDate, orderDate, name, total -->
         <thead>
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Name</th>
-            <th scope="col">OrderDate</th>
-            <th scope="col">DeliveryDate</th>
+            <th scope="col">Order date</th>
+            <th scope="col">Delivery date</th>
             <th scope="col">Phone</th>
             <th scope="col">Address</th>
             <th scope="col">Total</th>
@@ -70,15 +70,15 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
             foreach ($result as $row) {
           ?>
           <tr>
-            <td><?= $row->orderID ; ?></td>
+            <td><?= $row->orderID; ?></td>
             <td><?= $row->name; ?></td>
-            <td><?= $row->orderDate ; ?></td>
+            <td><?= $row->orderDate; ?></td>
             <td><?= $row->deliveryDate; ?></td>
-            <td><?= $row->phone ; ?></td>
+            <td><?= $row->phone; ?></td>
             <td><?= $row->address; ?></td>
-            <td><?= $row->total; ?></td>
-                
-             
+            <td>$<?= $row->total; ?></td>
+
+
           </tr>
           <?php
             }

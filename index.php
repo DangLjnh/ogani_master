@@ -40,11 +40,10 @@ include('./config/db.php');
   endif;
   ?>
   <!-- Humberger Begin -->
- 
+
   <!-- Humberger End -->
 
   <!-- Header Section Begin -->
-<<<<<<< HEAD
   <header class="header">
     <div class="header__top">
       <div class="container">
@@ -135,9 +134,6 @@ include('./config/db.php');
       </div>
     </div>
   </header>
-=======
-  <?php include('./include/header_index.php'); ?>
->>>>>>> 4766dce1f3ca0f51b82126caf5e81be8486bd3ec
   <!-- Header Section End -->
 
   <!-- Hero Section Begin -->
@@ -160,7 +156,7 @@ include('./config/db.php');
           ?>
           <div class="col-lg-3">
             <div class="categories__item set-bg" data-setbg="<?= $row->photoURL ?>">
-              <h5><a href="#">
+              <h5><a href="jasdj.php?categoryID=<?= $row->categoryID ?>">
                   <?= $row->name; ?>
                 </a></h5>
             </div>

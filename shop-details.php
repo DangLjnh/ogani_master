@@ -1,7 +1,11 @@
 <?php
 session_start();
 include('./config/db.php');
-
+include('./config/database.php');
+include('./model/Product.php');
+$db = new db();
+$db->connect();
+$products = new Product($db);
 function showStar($star)
 {
   for ($i = 0; $i < 5; $i++) {
@@ -48,13 +52,12 @@ function showStar($star)
   <?php
   if (isset($_GET['id'])) {
     $id = $_GET['id'];
-
-    $query = "SELECT * FROM product WHERE id=:id LIMIT 1";
-    $statement = $conn->prepare($query);
-    $data = [':id' => $id];
-    $statement->execute($data);
-
-    $result = $statement->fetch(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
+    // $query = "SELECT * FROM product WHERE id=:id LIMIT 1";
+    // $statement = $conn->prepare($query);
+    // $data = [':id' => $id];
+    // $statement->execute($data);
+    $data = $products->readSignle($id);
+    $result = $data->fetch(PDO::FETCH_OBJ);
   }
   ?>
 
@@ -183,8 +186,8 @@ function showStar($star)
   <!-- Humberger End -->
 
   <!-- Header Section Begin -->
-   <!-- Header Section Begin -->
-   <?php include('./include/header_index.php'); ?>
+  <!-- Header Section Begin -->
+  <?php include('./include/header_index.php'); ?>
   <!-- Header Section End -->
 
   <!-- Hero Section Begin -->

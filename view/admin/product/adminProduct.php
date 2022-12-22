@@ -1,7 +1,16 @@
 <?php
 session_start();
 include('../../../config/db.php');
+// require('../../../controller/product/reads.php');
+include('../../../config/database.php');
+include('../../../model/Product.php');
+include('../../../model/Category.php');
 if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
+
+$db = new db();
+$db->connect();
+$products = new Product($db);
+$categories = new Category($db);
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -63,19 +72,17 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
         </thead>
         <tbody>
           <?php
-          $query = "SELECT * FROM product";
-          $statement = $conn->prepare($query);
-          $statement->execute();
-          $statement->setFetchMode(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
-          $result = $statement->fetchAll();
-          if ($result) {
-            foreach ($result as $row) {
+          $read = $products->read();
+          $read->setFetchMode(PDO::FETCH_OBJ);
+          $data = $read->fetchAll();
+          if ($data) {
+            foreach ($data as $row) {
           ?>
           <tr>
             <td><?= $row->id; ?></td>
             <td><?= $row->name; ?></td>
-            <td> <?=number_format($row->price, 0, '', '.')?> VND</td>
-            <td> <?=number_format($row->weight, 0, '', '.')?> Gam</td>
+            <td>$<?= number_format($row->price, 0, '', '.') ?></td>
+            <td><?= number_format($row->weight, 0, '', '.') ?> kg</td>
             <td><?= $row->vote; ?></td>
             <td><?= $row->stockID; ?></td>
             <td>
@@ -83,16 +90,14 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
             </td>
             <td class="description"><?= $row->description; ?></td>
             <?php
-                $query = "SELECT * FROM category WHERE categoryID=$row->categoryID LIMIT 1";
-                $statement = $conn->prepare($query);
-                $data = [':categoryID' => $row->categoryID];
-                $statement->execute($data);
-                $result = $statement->fetch(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
+                $data = $categories->readSignle($row->categoryID);
+                $result = $data->fetch(PDO::FETCH_OBJ);
                 ?>
             <td><?= $result->name; ?></td>
             <td>
               <a href="./adminProductUpdate.php?id=<?= $row->id; ?>" class="btn btn-warning ">Edit</a>
               <form action="../../../controller/product/delete.php" method="POST">
+                <input type="hidden" name="stockID" value="<?= $row->stockID; ?>">
                 <button type="submit" name="delete_product" value="<?= $row->id; ?>"
                   class="btn btn-danger ml-2">Delete</button>
               </form>

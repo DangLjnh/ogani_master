@@ -2,15 +2,6 @@
 class Product
 {
   private $conn;
-  public $id;
-  public $name;
-  public $price;
-  public $weight;
-  public $vote;
-  public $stockID;
-  public $photoURL;
-  public $description;
-  public $categoryID;
 
   //connect db
   function __construct()
@@ -25,40 +16,59 @@ class Product
     $query = "SELECT * FROM product";
     $stmt = $this->conn->prepare($query);
     $stmt->execute();
+
     return $stmt;
   }
 
-  // public function readSignle()
-  // {
-  //   $query = "SELECT * FROM product where id=?";
-  //   $stmt = $this->conn->prepare($query);
-  //   // 1 or 2 params http://localhost/test-php/controller/product/show.php?masp=2
-  //   $stmt->bindParam(1, $this->masp); //find sp by masp
-  //   $stmt->execute();
+  public function readSignle($id)
+  {
+    $query = "SELECT * FROM product where id=$id";
+    $stmt = $this->conn->prepare($query);
+    // 1 or 2 params http://localhost/test-php/controller/product/show.php?masp=2
+    $stmt->bindParam(1, $this->masp); //find sp by masp
+    $stmt->execute();
+    return $stmt;
+  }
 
-  //   $row = $stmt->fetch(PDO::FETCH_ASSOC);
+  public function create($name, $price, $weight, $vote, $stockID, $file, $description, $categoryID)
+  {
+    $query = "INSERT INTO product (name, price, weight, vote ,stockID, photoURL, description, categoryID) VALUES (:name, :price,   :weight ,:vote,:stockID, :photoURL, :description, :categoryID)";
+    $stmt = $this->conn->prepare($query);
+    $data = new ProductModel($name, $price, $weight, $vote, $stockID, $file, $description, $categoryID);
+    $stmt->execute((array)$data);
+    return $stmt;
+  }
 
-  //   $this->tensp = $row['tensp'];
-  //   $this->gia = $row['gia'];
-  //   $this->hinh = $row['hinh'];
-  //   $this->maloai = $row['maloai'];
-  // }
-  // public function create()
-  // {
-  //   $query = "INSERT INTO sanpham (tensp, gia, hinh, maloai) VALUES (:tensp,:gia,:hinh,:maloai)";
-  //   $stmt = $this->conn->prepare($query);
-  //   $data = [
-  //     ':tensp' => $this->tensp,
-  //     ':gia' => $this->gia,
-  //     ':hinh' => $this->hinh,
-  //     ':maloai' => $this->maloai,
-  //   ];
-  //   $query_execute = $stmt->execute($data);
-  //   if ($query_execute) {
-  //     echo "success";
-  //   } else {
-  //     echo "fail";
-  //     echo $stmt->error;
-  //   }
-  // }
+  public function update($id, $name, $price, $weight, $vote, $stockID, $file, $description, $categoryID)
+  {
+    $query = "UPDATE product SET name=:name, price=:price, weight=:weight, vote=:vote ,stockID=:stockID , photoURL=:photoURL, description=:description, categoryID=:categoryID  WHERE id=:id LIMIT 1";
+    $stmt = $this->conn->prepare($query);
+    $data =
+      $stmt->execute(
+        array(
+          ':id' => $id,
+          ':name' => $name,
+          ':price' => $price,
+          ':vote' => $vote,
+          ':weight' => $weight,
+          ':stockID' => $stockID,
+          ':photoURL' => $file,
+          ':description' => $description,
+          ':categoryID' => $categoryID,
+        )
+      );
+    $stmt->execute($data);
+    return $stmt;
+  }
+
+  public function delete($id)
+  {
+    $query = "DELETE FROM product WHERE id=:id";
+    $statement = $this->conn->prepare($query);
+    $data = [
+      ':id' => $id
+    ];
+    $statement->execute($data);
+    return $statement;
+  }
 }
