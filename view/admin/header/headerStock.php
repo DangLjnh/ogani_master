@@ -12,7 +12,7 @@
             <li><a href="../user/adminUser.php">Users</a></li>
             <li><a href="../product/adminProduct.php">Products</a></li>
             <li><a href="../category/adminCategory.php">Categories</a></li>
-            <li><a href="./blog.html">Orders</a></li>
+            <li><a href="../oder/adminOder.php">Orders</a></li>
             <li class="active"><a href="../stock/adminStock.php">Stocks</a></li>
           </ul>
         </nav>
