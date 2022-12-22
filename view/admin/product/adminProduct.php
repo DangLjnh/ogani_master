@@ -1,7 +1,5 @@
 <?php
 session_start();
-include('../../../config/db.php');
-// require('../../../controller/product/reads.php');
 include('../../../config/database.php');
 include('../../../model/Product.php');
 include('../../../model/Category.php');

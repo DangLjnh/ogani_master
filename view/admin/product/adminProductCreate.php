@@ -1,6 +1,13 @@
 <?php
 session_start();
 include('../../../config/db.php');
+// require('../../../controller/product/reads.php');
+include('../../../config/database.php');
+include('../../../model/Category.php');
+
+$db = new db();
+$db->connect();
+$categories = new Category($db);
 ?>
 <!DOCTYPE html>
 <html lang="zxx">
@@ -36,7 +43,7 @@ include('../../../config/db.php');
     unset($_SESSION['message']);
   endif;
   ?>
- 
+
 
   <?php include('../header/headerProduct.php'); ?>
 
@@ -90,13 +97,11 @@ include('../../../config/db.php');
           <div class="col-sm-12">
             <label for="text">Danh mục sản phẩm: </label>
             <select name="category_product" id="">
-            <option value="0">No Record Found</option> 
+              <option value="0">No Record Found</option>
               <?php
-              $query = "SELECT * FROM category";
-              $statement = $conn->prepare($query);
-              $statement->execute();
-              $statement->setFetchMode(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
-              $result = $statement->fetchAll();
+              $read = $categories->read();
+              $read->setFetchMode(PDO::FETCH_OBJ);
+              $result = $read->fetchAll();
               if ($result) {
                 foreach ($result as $row) {
               ?>
@@ -130,13 +135,13 @@ include('../../../config/db.php');
   <script src="../../../js/jquery.slicknav.js"></script>
   <script src="../../../js/mixitup.min.js"></script>
   <script src="../../../js/owl.carousel.min.js"></script> -->
-  <script src="http://code.jquery.com/jquery-3.4.1.min.js" 
+  <script src="http://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script type="text/javascript"
-    src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js">
+  </script>
   <script src="../../../js/jquery_product.js"></script>
-  
- 
+
+
 
 
 

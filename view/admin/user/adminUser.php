@@ -1,7 +1,10 @@
 <?php
 session_start();
 include('../../../config/db.php');
+include('../../../config/database.php');
+include('../../../model/User.php');
 if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="zxx">

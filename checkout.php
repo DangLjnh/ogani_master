@@ -1,9 +1,7 @@
 <?php
 session_start();
- 
- 
 include('./config/db.php');
- 
+
 function showProducts()
 {
   $total = 0;
@@ -90,7 +88,7 @@ function showDataUser()
 }
 
 ?>
- 
+
 <!DOCTYPE html>
 <html lang="zxx">
 

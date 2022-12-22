@@ -1,6 +1,11 @@
 <?php
 session_start();
 include('../../../config/db.php');
+include('../../../config/database.php');
+include('../../../model/Category.php');
+$db = new db();
+$db->connect();
+$categories = new Category($db);
 if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
 ?>
 <!DOCTYPE html>
@@ -58,11 +63,9 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
         </thead>
         <tbody>
           <?php
-          $query = "SELECT * FROM category";
-          $statement = $conn->prepare($query);
-          $statement->execute();
-          $statement->setFetchMode(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
-          $result = $statement->fetchAll();
+          $read = $categories->read();
+          $read->setFetchMode(PDO::FETCH_OBJ);
+          $result = $read->fetchAll();
           if ($result) {
             foreach ($result as $row) {
           ?>
