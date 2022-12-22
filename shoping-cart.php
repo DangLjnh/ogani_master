@@ -179,15 +179,15 @@ function showCart()
   <!-- Humberger End -->
 
   <!-- Header Section Begin -->
- 
+
   <!-- Header Section End -->
   <?php include('./include/header_index.php'); ?>
   <!-- Header Section End -->
 
   <!-- Hero Section Begin -->
-  <?php include('./include/heroSecsion_index.php'); ?>
+  <!-- <?php include('./include/heroSecsion_index.php'); ?> -->
   <!-- Hero Section Begin -->
-   
+
   <!-- Hero Section End -->
 
   <!-- Breadcrumb Section Begin -->
