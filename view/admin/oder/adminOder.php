@@ -72,8 +72,8 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
           <tr>
             <td><?= $row->orderID; ?></td>
             <td><?= $row->name; ?></td>
-            <td><?= $row->orderDate; ?></td>
-            <td><?= $row->deliveryDate; ?></td>
+            <td class="data"><?= $row->orderDate; ?></td>
+            <td class="data"><?= $row->deliveryDate; ?></td>
             <td><?= $row->phone; ?></td>
             <td><?= $row->address; ?></td>
             <td>$<?= $row->total; ?></td>
@@ -112,5 +112,11 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
 
 
 </body>
+<script>
+const data = document.querySelectorAll(".data")
+data.forEach((item) => {
+  item.textContent = item.textContent.slice(0, 10);
+})
+</script>
 
 </html>
