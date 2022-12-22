@@ -1,3 +1,4 @@
+ 
 <section class="hero">
     <div class="container">
       <div class="row">
@@ -7,10 +8,28 @@
               <i class="fa fa-bars"></i>
               <span>All departments</span>
             </div>
-            <ul>
-              <li><a href="#">ALL</a></li>
+            <ul> 
+                <?php
+              $queryy = "SELECT * FROM category";
+              $statementt = $conn->prepare($queryy);
+              $statementt->execute();
+              $statementt->setFetchMode(PDO::FETCH_OBJ); //PDO::FETCH_ASSOC
+              $resultt = $statementt->fetchAll();
               
+              if ($resultt) {
+                foreach ($resultt as $row) {
+              ?>
+              <li> <a href="./product_category.php?categoryID=<?= $row->categoryID; ?>"><?= $row->name; ?></a></li>
                
+              <?php
+                }
+              } else {
+                ?>
+              <li value="0"> <a href="">No Record Found</a></li>
+              <?php
+              }
+              ?>
+              <li> <a href="./index.php?>">All Product</a></li>                                                       
             </ul>
           </div>
         </div>
