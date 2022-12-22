@@ -52,26 +52,26 @@ $categories = new Category($db);
       <div class="modal-body row">
         <div class="form-group col-6">
           <div class="col-sm-12">
-            <label for="text">Tên sản phẩm: </label>
+            <label for="text">Name: </label>
             <input type="text" name="name" class="form-control" placeholder="Enter name">
           </div>
         </div>
         <div class="form-group col-6">
           <div class="col-sm-12">
-            <label for="text">Gía: </label>
+            <label for="text">Price: </label>
             <input type="number" name="price" class="form-control" placeholder="Enter price">
           </div>
         </div>
         <div class="form-group col-6">
           <div class="col-sm-12">
-            <label for="text">Cân nặng(Gam): </label>
+            <label for="text">Weight(kg): </label>
             <input type="number" min="0" oninput="validity.valid||(value='');" step="0.5" name="weight"
               class="form-control" placeholder="Enter weight">
           </div>
         </div>
         <div class="form-group col-6">
           <div class="col-sm-12">
-            <label for="text">Đánh giá(1-5): </label>
+            <label for="text">Vote(1-5): </label>
             <input type="number" name="vote" class="form-control" min="1" max="5" placeholder="Enter name">
           </div>
         </div>
@@ -86,7 +86,7 @@ $categories = new Category($db);
         </div>
         <div class="form-group col-6">
           <div class="col-sm-12">
-            <label for="text">Mô tả: </label>
+            <label for="text">Description: </label>
             <input type="text" name="desc" class="form-control" placeholder="Enter name">
           </div>
         </div>
@@ -95,7 +95,7 @@ $categories = new Category($db);
         </div>
         <div class="form-group col-8">
           <div class="col-sm-12">
-            <label for="text">Danh mục sản phẩm: </label>
+            <label for="text">Category: </label>
             <select name="category_product" id="">
               <option value="0">No Record Found</option>
               <?php
@@ -118,7 +118,7 @@ $categories = new Category($db);
           </div>
         </div>
         <div class="text-center">
-          <button type="submit" name="create_product_btn" class="btn btn-primary">Thêm sản phẩm</button>
+          <button type="submit" name="create_product_btn" class="btn btn-primary">Add product</button>
         </div>
     </form>
   </div>

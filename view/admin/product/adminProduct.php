@@ -64,8 +64,9 @@ $categories = new Category($db);
             <th scope="col">Vote</th>
             <th scope="col">Stock</th>
             <th scope="col">Image</th>
-            <th scope="col">description</th>
-            <th scope="col">Danh Mục</th>
+            <th scope="col">Description</th>
+            <th scope="col">Category</th>
+            <th scope="col">Action</th>
           </tr>
         </thead>
         <tbody>

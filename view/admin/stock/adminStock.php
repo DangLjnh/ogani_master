@@ -46,7 +46,6 @@ if (!$_SESSION['nameAdmin']) header('Location: ../../../index.php');
       <div class="contact__form__title">
         <h2>Admin</h2>
       </div>
-      <a href="./adminCategoryCreate.php" class="btn btn-success">Add new category</a>
       <table class="table table-striped">
         <thead>
           <tr>
