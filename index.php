@@ -34,7 +34,7 @@ include('./config/db.php');
   </div>
 
   <?php if (isset($_SESSION['message'])) : ?>
-  <h5 class="alert alert-success"><?= $_SESSION['message']; ?></h5>
+    <h5 class="alert alert-success"><?= $_SESSION['message']; ?></h5>
   <?php
     unset($_SESSION['message']);
   endif;
@@ -44,99 +44,7 @@ include('./config/db.php');
   <!-- Humberger End -->
 
   <!-- Header Section Begin -->
-  <<<<<<< HEAD <header class="header">
-    <div class="header__top">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6 col-md-6">
-            <div class="header__top__left">
-              <ul>
-                <li><i class="fa fa-envelope"></i> phulinh@gmail.com</li>
-                <li>Free Shipping for all Order of $99</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6">
-            <div class="header__top__right">
-              <div class="header__top__right__social">
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-              </div>
-              <div class="header__top__right__language">
-                <img src="img/language.png" alt="">
-                <div>English</div>
-                <span class="arrow_carrot-down"></span>
-                <ul>
-                  <li><a href="#">Spanis</a></li>
-                  <li><a href="#">English</a></li>
-                </ul>
-              </div>
-              <div class="header__top__right__auth">
-                <?php
-                if (isset($_SESSION['nameUser'])) {
-                ?>
-                <div class="d-flex justify-content-center align-items-center gap-2">
-                  <a href="#" class=""><?= $_SESSION['nameUser']; ?></a>
-                  <a class="btn btn-warning ml-2" href="./controller/logout.php">Log out</a>
-                </div>
-                <?php
-                } else {
-                ?>
-                <a href="view/login.php"><i class="fa fa-user"></i> Login</a>
-                <?php
-                }
-                ?>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3">
-          <div class="header__logo">
-            <a href="./index.php"><img src="img/logo.png" alt=""></a>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <nav class="header__menu">
-            <ul>
-              <li class="active"><a href="./index.php">Home</a></li>
-              <li><a href="./shop-grid.html">Shop</a></li>
-              <li><a href="#">Pages</a>
-                <ul class="header__menu__dropdown">
-                  <li><a href="./shop-details.html">Shop Details</a></li>
-                  <li><a href="./shoping-cart.html">Shoping Cart</a></li>
-                  <li><a href="./checkout.html">Check Out</a></li>
-                  <li><a href="./blog-details.html">Blog Details</a></li>
-                </ul>
-              </li>
-              <li><a href="./blog.html">Blog</a></li>
-              <li><a href="./contact.html">Contact</a></li>
-            </ul>
-          </nav>
-        </div>
-        <div class="col-lg-3">
-          <div class="header__cart">
-            <ul>
-              <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-              <li><a href="./shoping-cart.php"><i class="fa fa-shopping-bag"></i>
-                  <span><?= isset($_SESSION['countCart']) ? $_SESSION['countCart'] : 0 ?></span></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="humberger__open">
-        <i class="fa fa-bars"></i>
-      </div>
-    </div>
-    </header>
-    =======
     <?php include('./include/header_index.php'); ?>
-    >>>>>>> 4766dce1f3ca0f51b82126caf5e81be8486bd3ec
     <!-- Header Section End -->
 
     <!-- Hero Section Begin -->
@@ -157,18 +65,18 @@ include('./config/db.php');
             if ($result) {
               foreach ($result as $row) {
             ?>
-            <div class="col-lg-3">
-              <div class="categories__item set-bg" data-setbg="<?= $row->photoURL ?>">
-                <h5><a href="jasdj.php?categoryID=<?= $row->categoryID ?>">
-                    <?= $row->name; ?>
-                  </a></h5>
-              </div>
-            </div>
-            <?php
+                <div class="col-lg-3">
+                  <div class="categories__item set-bg" data-setbg="<?= $row->photoURL ?>">
+                    <h5><a href="jasdj.php?categoryID=<?= $row->categoryID ?>">
+                        <?= $row->name; ?>
+                      </a></h5>
+                  </div>
+                </div>
+              <?php
               }
             } else {
               ?>
-            <div>No Record Found</div>
+              <div>No Record Found</div>
             <?php
             }
             ?>
@@ -208,37 +116,36 @@ include('./config/db.php');
           if ($result) {
             foreach ($result as $row) {
           ?>
-          <div class="col-lg-3 col-md-4 col-sm-6 mix <?= $row->categoryID; ?>">
-            <div class="featured__item">
-              <div class="featured__item__pic set-bg" data-setbg="<?= $row->photoURL; ?>">
-                <ul class="featured__item__pic__hover">
-                  <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                  <li><a href="./shop-details.php?id=<?= $row->id; ?>"><i class="fa fa-retweet"></i></a></li>
-                  <li>
-                    <form action="./shoping-cart.php" method="POST">
-                      <input type="hidden" name="id" value="<?= $row->id; ?>">
-                      <input type="hidden" name="name" value="<?= $row->name; ?>">
-                      <input type="hidden" name="photoURL" value="<?= $row->photoURL ?>">
-                      <input type="hidden" name="price" value="<?= $row->price ?>">
-                      <input type="hidden" name="stockID" value="<?= $row->stockID ?>">
-                      <input type="hidden" name="amount" value="1">
-                      <button type="submit" name="add-to-cart" style="border: none; background-color: unset;"><a><i
-                            class="fa fa-shopping-cart"></i></a></button>
-                    </form>
-                  </li>
-                </ul>
+              <div class="col-lg-3 col-md-4 col-sm-6 mix <?= $row->categoryID; ?>">
+                <div class="featured__item">
+                  <div class="featured__item__pic set-bg" data-setbg="<?= $row->photoURL; ?>">
+                    <ul class="featured__item__pic__hover">
+                      <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                      <li><a href="./shop-details.php?id=<?= $row->id; ?>"><i class="fa fa-retweet"></i></a></li>
+                      <li>
+                        <form action="./shoping-cart.php" method="POST">
+                          <input type="hidden" name="id" value="<?= $row->id; ?>">
+                          <input type="hidden" name="name" value="<?= $row->name; ?>">
+                          <input type="hidden" name="photoURL" value="<?= $row->photoURL ?>">
+                          <input type="hidden" name="price" value="<?= $row->price ?>">
+                          <input type="hidden" name="stockID" value="<?= $row->stockID ?>">
+                          <input type="hidden" name="amount" value="1">
+                          <button type="submit" name="add-to-cart" style="border: none; background-color: unset;"><a><i class="fa fa-shopping-cart"></i></a></button>
+                        </form>
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="featured__item__text">
+                    <h6><a href="#"><?= $row->name; ?></a></h6>
+                    <h5>$<?= $row->price; ?></h5>
+                  </div>
+                </div>
               </div>
-              <div class="featured__item__text">
-                <h6><a href="#"><?= $row->name; ?></a></h6>
-                <h5>$<?= $row->price; ?></h5>
-              </div>
-            </div>
-          </div>
-          <?php
+            <?php
             }
           } else {
             ?>
-          <div>No Record Found</div>
+            <div>No Record Found</div>
           <?php
           }
           ?>
