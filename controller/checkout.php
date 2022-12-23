@@ -62,9 +62,11 @@ if (isset($_POST['checkout'])) {
       $query_execute = $stmtUpdateStock->execute($dataUpdateStock);
 
       $_SESSION['message'] = "Order food successfully!";
-      if ($_SESSION['cart']) unset($_SESSION['cart']);
-      if ($_SESSION['total']) unset($_SESSION['total']);
-      if ($_SESSION['countCart']) unset($_SESSION['countCart']);
+      if ($i == sizeof($_SESSION['cart']) - 1) {
+        if ($_SESSION['cart']) unset($_SESSION['cart']);
+        if ($_SESSION['total']) unset($_SESSION['total']);
+        if ($_SESSION['countCart']) unset($_SESSION['countCart']);
+      }
       header("Location: ../invoice-details.php?orderID=$orderID");
     }
   }

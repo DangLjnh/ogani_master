@@ -55,7 +55,7 @@ function showCart()
 {
   $total = 0;
   $countCart = 0;
-  if (isset($_SESSION['cart'])) {
+  if (isset($_SESSION['cart'])) { //thanh toán nào
     for ($i = 0; $i < sizeof($_SESSION['cart']); $i++) {
       $total = $total + $_SESSION['cart'][$i][3] * $_SESSION['cart'][$i][4];
       $countCart += 1;
